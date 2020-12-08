@@ -8,22 +8,16 @@ using UnityEngine;
 public class SpaceDirector : MonoBehaviour
 {
     public GameObject characterPrefab;//成員物件
-    public List<Vector3> seats;//就定位座標
+    //characterCrator
     private CharacterCommander characterCommander;//角色指令官
-    private SeatingPlan seatingPlan;//座位安排
 
     private void Start()
     {
         //替角色們指派一位指揮官
         characterCommander = new CharacterCommander();
-        seatingPlan = new SeatingPlan();
-        seats = seatingPlan.AutoCreateSeat(18);
-    }
-
-    public void Goto()
-    {
-        characterCommander.LookForward();
-        characterCommander.GoTo("0", new Vector3(0,0,-7),10f,true, Arrival);
+        //初始化
+        //等待角色生成完成
+        //characterCrator
     }
 
     void Arrival()
@@ -53,12 +47,30 @@ public class SpaceDirector : MonoBehaviour
 
     #region Space control
     /// <summary>
+    /// 依照指定席位打招呼。
+    /// </summary>
+    public void SayHello()
+    {
+        characterCommander.LookForward("0");
+        characterCommander.GoTo("0", new Vector3(0, 0, -7), 10f, true, Arrival);
+    }
+
+    /// <summary>
+    /// 退回當前打招呼之角色。
+    /// </summary>
+    public void Back()
+    {
+        characterCommander.BackFromDestination("0");
+    }
+
+    /// <summary>
     /// 閒置狀態。
     /// </summary>
     public void Floating()
     {
         characterCommander.Floating();
     }
+
 
     /// <summary>
     /// 時間停止。

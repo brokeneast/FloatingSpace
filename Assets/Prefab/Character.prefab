@@ -124,5 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingSpeed: 1
-  rotateSpeed: 0.004
+  rotatingSpeed: 0.004
   body: {fileID: 1467400658780309632}
+  theCollider: {fileID: 1467400658780309645}
+  roleInfo:
+    id: 0
+    seatIndex: 0
+    displayName: 

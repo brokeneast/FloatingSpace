@@ -44,6 +44,15 @@ public class SeatingPlan
 
 
     #region Seat Modify
+
+    /// <summary>
+    /// 創建座位。
+    /// </summary>
+    public void CreateSeat()
+    {
+
+    }
+
     /// <summary>
     /// 設座位位置至列表座位資訊。
     /// </summary>

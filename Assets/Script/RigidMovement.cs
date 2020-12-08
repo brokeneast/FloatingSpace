@@ -1,14 +1,17 @@
 ﻿/*
  * 浮動空間中剛體的移動模式
  */
+using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class RigidMovement : Movement
 {
     public Rigidbody body;
-    private bool stopRigi;//靜止Rigi
+    public Collider theCollider;
+    private bool stopRigid;//靜止Rigi，停止一切物理動作
 
     protected override void Start()
     {
@@ -23,7 +26,7 @@ public class RigidMovement : Movement
     public override void Stop()
     {
         //Rigid
-        stopRigi = true;
+        stopRigid = true;
 
         //一般
         base.Stop();
@@ -35,10 +38,33 @@ public class RigidMovement : Movement
     public override void Resume()
     {
         //Rigid
-        stopRigi = false;
+        stopRigid = false;
 
         //一般
         base.Resume();
+    }
+
+
+    public void GoTo(Vector3 targetPos, float speed, bool ignoreCollider)
+    {
+        base.GoTo(targetPos, speed);
+        theCollider.enabled = !ignoreCollider;
+    }
+
+    public void GoTo(Vector3 targetPos, float speed,bool ignoreCollider, Action onArrival)
+    {
+        base.GoTo(targetPos, speed, onArrival);
+        theCollider.enabled = !ignoreCollider;
+    }
+
+    /// <summary>
+    /// 從目的地回歸後。
+    /// </summary>
+    protected override void OnBackFromDestination()
+    {
+        SpeedReset(true, true);//速度回復
+        Floating();//繼續浮動
+        theCollider.enabled = true;//恢復碰撞
     }
 
     /// <summary>
@@ -68,7 +94,7 @@ public class RigidMovement : Movement
 
         base.FixedUpdate();
 
-        if (stopRigi)
+        if (stopRigid)
         {
             body.velocity = Vector3.zero;
             body.freezeRotation = true;

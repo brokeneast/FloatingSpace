@@ -99,38 +99,34 @@ public class CharacterCommander : Commander<Character>
         }
     }
 
-    public void GoTo(string characterId, Vector3 pos, float speed)
-    {
-        Character c = GetCharacter(characterId);
-        if (c != null)
-        {
-            c.GoTo(pos, speed);
-        }
-    }
-
     /// <summary>
     /// 指定特定角色到特定位置，可不受空間碰撞限制。
     /// </summary>
-    public void GoTo(string characterId, Vector3 pos, float speed, bool isKinematic)
+    public void GoTo(string characterId, Vector3 pos, float speed, bool ignoreCollider)
     {
         Character c = GetCharacter(characterId);
         if (c != null)
         {
-            c.GoTo(pos, speed);
+            c.GoTo(pos, speed, ignoreCollider);
         }
-
-        c.body.isKinematic = true;
     }
 
-    public void GoTo(string characterId, Vector3 pos, float speed, bool isKinematic, Action onArrival)
+    public void GoTo(string characterId, Vector3 pos, float speed, bool ignoreCollider, Action onArrival)
     {
         Character c = GetCharacter(characterId);
         if (c != null)
         {
-            c.GoTo(pos, speed, onArrival);
+            c.GoTo(pos, speed, ignoreCollider, onArrival);
         }
+    }
 
-        c.body.isKinematic = true;
+    public void BackFromDestination(string characterId)
+    {
+        Character c = GetCharacter(characterId);
+        if (c != null)
+        {
+            c.BackFromDestination();
+        }
     }
 
     /// <summary>

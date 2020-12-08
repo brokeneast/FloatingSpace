@@ -15,18 +15,19 @@ public abstract class Movement : MonoBehaviour
     private float _movingSpeed;
     private float _rotatingSpeed;
 
-    //自動移動
+    protected bool isRotating;
+    protected bool isMoving;
+
+    //自動移動(自由浮動)
     protected Vector3 rotatingEuler = Vector3.zero;//自動移動時的旋轉角
     protected Vector3 movingDirection = Vector3.zero;//自動移動時的移動方向
 
-    //指定移動
+    //指定移動(有特定目的地)
     private Vector3 destination; //要移動到的位置
     private Vector3 rotation;//指定旋轉的角度
     private Action OnArrivalDestination;//抵達特定位置後動作
     private bool isArrival;
-
-    protected bool isRotating;
-    protected bool isMoving;
+    private Vector3 comeBackPos;//當從指定點回來時的原本位置
 
     protected bool hasAimingTarget;//已設定要瞄準的方向，因此將忽略自轉等情形
     protected bool hasAssignedRotation;//已設定要旋轉至的方向，因此將忽略自轉等情形
@@ -58,7 +59,7 @@ public abstract class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// 還原動作。
+    /// 恢復動作。
     /// </summary>
     public virtual void Resume()
     {
@@ -72,20 +73,32 @@ public abstract class Movement : MonoBehaviour
     /// </summary>
     public virtual void GoTo(Vector3 targetPos)
     {
+        comeBackPos = transform.position;
         MoveTo(targetPos);
     }
 
     public virtual void GoTo(Vector3 targetPos, float speed)
     {
+        comeBackPos = transform.position;
         MoveTo(targetPos);
         movingSpeed = speed;
     }
 
     public virtual void GoTo(Vector3 targetPos, float speed, Action onArrival)
     {
+        comeBackPos = transform.position;
         MoveTo(targetPos);
         movingSpeed = speed;
         OnArrivalDestination = onArrival;
+    }
+
+    /// <summary>
+    /// 從前往目的地的途中折返。
+    /// </summary>
+    public virtual void BackFromDestination()
+    {
+        MoveTo(comeBackPos);
+        OnArrivalDestination = OnBackFromDestination;
     }
 
     /// <summary>
@@ -118,7 +131,7 @@ public abstract class Movement : MonoBehaviour
     /// <summary>
     /// 速度回歸至初始值。
     /// </summary>
-    public void SpeedReset(bool resetMovingSpeed ,bool resetRotatingSpeed)
+    public void SpeedReset(bool resetMovingSpeed, bool resetRotatingSpeed)
     {
         movingSpeed = resetMovingSpeed ? _movingSpeed : movingSpeed;
         rotatingSpeed = resetRotatingSpeed ? _rotatingSpeed : rotatingSpeed;
@@ -169,8 +182,6 @@ public abstract class Movement : MonoBehaviour
         hasAssignedRotation = false;
     }
 
-
-
     /// <summary>
     /// 開始自行旋轉。
     /// </summary>
@@ -210,6 +221,14 @@ public abstract class Movement : MonoBehaviour
         hasAimingTarget = false;
     }
 
+    /// <summary>
+    /// 從目的地回歸後。
+    /// </summary>
+    protected virtual void OnBackFromDestination()
+    {
+        SpeedReset(true, true);//速度回復
+        Floating();//繼續浮動
+    }
 
     /// <summary>
     /// 創建新移動設定。
@@ -242,7 +261,9 @@ public abstract class Movement : MonoBehaviour
             if (hasAimingTarget) //有轉向指定
             {
                 rotation = (destination - transform.position).normalized;
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, Quaternion.LookRotation(rotation).z), Time.deltaTime* rotatingSpeed * 200);
+                if (rotation == Vector3.zero)
+                    rotation = Vector3.up;//此處防止rotation為0
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, Quaternion.LookRotation(rotation).z), Time.deltaTime * rotatingSpeed * 200);
             }
             else if (hasAssignedRotation)
             {
@@ -259,6 +280,7 @@ public abstract class Movement : MonoBehaviour
             if (hasMovingDestination)
             {
                 transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * movingSpeed);
+
 
                 if (transform.position == destination && !isArrival)//抵達指定位置
                 {
