@@ -1,11 +1,18 @@
 ﻿/*
  * 角色資訊。
  */
-using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class RoleInfo
 {
-    public string sortingIndex; //排序編號(將在排隊時作為參考)
+    public string id;
+    public int seatIndex;//位置索引值
     public string displayName; //名稱
+
+    public RoleInfo()
+    {
+        //id = Guid.NewGuid().ToString("N");
+        id = "0";
+    }
 }

@@ -10,8 +10,9 @@ public class RigidMovement : Movement
     public Rigidbody body;
     private bool stopRigi;//靜止Rigi
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         Floating();
     }
 
@@ -53,10 +54,9 @@ public class RigidMovement : Movement
 
     protected override void FixedUpdate()
     {
-
         if (isRotating)
         {
-            if (hasLookRotation) //有轉向指定
+            if (hasAimingTarget || hasAssignedRotation) //有轉向指定
             {
                 body.freezeRotation = true;
             }
@@ -90,7 +90,7 @@ public class RigidMovement : Movement
         }
     }
     
-
+    /*
     private void OnTriggerExit(Collider others)
     {
         if (others.gameObject.tag == "FloatingSpace")//角色正離開空間
@@ -98,5 +98,5 @@ public class RigidMovement : Movement
             transform.position = new Vector3( -transform.position.x, -transform.position.y,0);
         }
     }
-
+    */
 }

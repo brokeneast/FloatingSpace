@@ -5,10 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Character : RigidMovement
 {
-    public RoleInfo roleInfo { get; private set; }
+    public RoleInfo roleInfo;
 
     public enum MovingMode {FLOATING, REST, IN_PLACE};//移動狀態
     public enum ActionMode {SWIMING, HOLD_HANDS, RAISE_HAND};//動畫狀態
+
+    protected override void Start()
+    {
+        roleInfo = new RoleInfo();
+        base.Start();
+    }
 
     /// <summary>
     /// 角色初始化。

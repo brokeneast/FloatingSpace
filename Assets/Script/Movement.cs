@@ -1,28 +1,43 @@
 ﻿/*
  * 浮動空間中的移動模式
  */
+using System;
 using UnityEngine;
 
 public abstract class Movement : MonoBehaviour
 {
     //移動
-    [Range(0.5f,3f)]
+    [Range(0.5f, 3f)]
     public float movingSpeed = 1;
     [Range(0.001f, 0.01f)]
-    public float rotateSpeed = 0.004f;
+    public float rotatingSpeed = 0.004f;
 
-    //自動
-    protected Vector3 rotatingEuler = Vector3.zero;
-    protected Vector3 movingDirection = Vector3.zero;
+    private float _movingSpeed;
+    private float _rotatingSpeed;
 
-    //指定
+    //自動移動
+    protected Vector3 rotatingEuler = Vector3.zero;//自動移動時的旋轉角
+    protected Vector3 movingDirection = Vector3.zero;//自動移動時的移動方向
+
+    //指定移動
     private Vector3 destination; //要移動到的位置
+    private Vector3 rotation;//指定旋轉的角度
+    private Action OnArrivalDestination;//抵達特定位置後動作
+    private bool isArrival;
 
     protected bool isRotating;
     protected bool isMoving;
 
-    protected bool hasLookRotation;//已設定要旋轉至的方向，因此將忽略自轉等情形
+    protected bool hasAimingTarget;//已設定要瞄準的方向，因此將忽略自轉等情形
+    protected bool hasAssignedRotation;//已設定要旋轉至的方向，因此將忽略自轉等情形
     protected bool hasMovingDestination;//已設定要移動的地點，因此將忽略自主移動情形
+
+    protected virtual void Start()
+    {
+        //備份初始速度
+        _movingSpeed = movingSpeed;
+        _rotatingSpeed = rotatingSpeed;
+    }
 
     /// <summary>
     /// 隨意浮動。
@@ -57,7 +72,20 @@ public abstract class Movement : MonoBehaviour
     /// </summary>
     public virtual void GoTo(Vector3 targetPos)
     {
-        RotateTo(targetPos);
+        MoveTo(targetPos);
+    }
+
+    public virtual void GoTo(Vector3 targetPos, float speed)
+    {
+        MoveTo(targetPos);
+        movingSpeed = speed;
+    }
+
+    public virtual void GoTo(Vector3 targetPos, float speed, Action onArrival)
+    {
+        MoveTo(targetPos);
+        movingSpeed = speed;
+        OnArrivalDestination = onArrival;
     }
 
     /// <summary>
@@ -65,7 +93,7 @@ public abstract class Movement : MonoBehaviour
     /// </summary>
     public virtual void LookTo(Vector3 targetPos)
     {
-        RotateTo(targetPos);
+        TurnToward(targetPos);
     }
 
     /// <summary>
@@ -73,45 +101,27 @@ public abstract class Movement : MonoBehaviour
     /// </summary>
     public virtual void LookForward()
     {
-        RotateTo(transform.forward);
+        TurnToward(transform.forward);
     }
 
-
     /// <summary>
-    /// 旋轉。
+    /// 轉向指定角度。
     /// </summary>
-    protected virtual void StartRotating(Vector3 euler)
+    public virtual void RotateTo(Vector3 rotation)
     {
         isRotating = true;
-        hasLookRotation = false;
-        rotatingEuler = euler;
+        hasAimingTarget = false;
+        hasAssignedRotation = true;
+        this.rotation = rotation;
     }
 
     /// <summary>
-    /// 停止旋轉。
+    /// 速度回歸至初始值。
     /// </summary>
-    protected virtual void StopRotating()
+    public void SpeedReset(bool resetMovingSpeed ,bool resetRotatingSpeed)
     {
-        isRotating = false;
-    }
-
-
-    /// <summary>
-    /// 旋轉至目標位置方向(望向)。
-    /// </summary>
-    protected virtual void RotateTo(Vector3 targetPos)
-    {
-        isRotating = true;
-        hasLookRotation = true;
-        destination = targetPos;
-    }
-
-    /// <summary>
-    /// 取消望向特定方向，但可能還會持續自主旋轉。
-    /// </summary>
-    protected virtual void StopRotateToTarget()
-    {
-        hasLookRotation = false;
+        movingSpeed = resetMovingSpeed ? _movingSpeed : movingSpeed;
+        rotatingSpeed = resetRotatingSpeed ? _rotatingSpeed : rotatingSpeed;
     }
 
     /// <summary>
@@ -150,14 +160,65 @@ public abstract class Movement : MonoBehaviour
         hasMovingDestination = false;
     }
 
+
+    /// <summary>
+    /// 取消轉為特定方向，但可能還會持續自主旋轉。
+    /// </summary>
+    protected virtual void StopRotateToDirection()
+    {
+        hasAssignedRotation = false;
+    }
+
+
+
+    /// <summary>
+    /// 開始自行旋轉。
+    /// </summary>
+    protected virtual void StartRotating(Vector3 euler)
+    {
+        isRotating = true;
+        hasAimingTarget = false;
+        hasAssignedRotation = false;
+        rotatingEuler = euler;
+    }
+
+    /// <summary>
+    /// 停止自行旋轉。
+    /// </summary>
+    protected virtual void StopRotating()
+    {
+        isRotating = false;
+    }
+
+
+    /// <summary>
+    /// 朝向目標位置方向(望向)。
+    /// </summary>
+    protected virtual void TurnToward(Vector3 targetPos)
+    {
+        isRotating = true;
+        hasAimingTarget = true;
+        hasAssignedRotation = false;
+        destination = targetPos;
+    }
+
+    /// <summary>
+    /// 取消望向特定方向，但可能還會持續自主旋轉。
+    /// </summary>
+    protected virtual void StopTurnToward()
+    {
+        hasAimingTarget = false;
+    }
+
+
     /// <summary>
     /// 創建新移動設定。
     /// </summary>
     protected virtual void CreateMovingSettings()
     {
-        rotatingEuler = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), 0);
+        rotatingEuler = new Vector3(UnityEngine.Random.Range(-180, 180), UnityEngine.Random.Range(-180, 180), 0);
         StartRotating(rotatingEuler);
-        movingDirection = new Vector3(Mathf.RoundToInt(Random.Range(-1, 1)), 1, 0);
+        movingDirection = new Vector3(Mathf.RoundToInt(UnityEngine.Random.Range(-1, 1)), 1, 0);
         StartMoving(movingDirection);
     }
 
@@ -178,14 +239,18 @@ public abstract class Movement : MonoBehaviour
     {
         if (isRotating)
         {
-            if (hasLookRotation) //有轉向指定
+            if (hasAimingTarget) //有轉向指定
             {
-                Vector3 direction = (destination - transform.position).normalized;
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, Quaternion.LookRotation(direction).z), Time.deltaTime*rotateSpeed*200);
+                rotation = (destination - transform.position).normalized;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, Quaternion.LookRotation(rotation).z), Time.deltaTime* rotatingSpeed * 200);
+            }
+            else if (hasAssignedRotation)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation.x, rotation.y, rotation.z), Time.deltaTime * rotatingSpeed * 200);
             }
             else
             {
-                transform.Rotate(rotatingEuler * rotateSpeed);//自轉
+                transform.Rotate(rotatingEuler * rotatingSpeed);//自轉
             }
         }
 
@@ -194,6 +259,17 @@ public abstract class Movement : MonoBehaviour
             if (hasMovingDestination)
             {
                 transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * movingSpeed);
+
+                if (transform.position == destination && !isArrival)//抵達指定位置
+                {
+                    isArrival = true;
+                    OnArrivalDestination?.Invoke();//觸發
+                }
+                else if (transform.position != destination)
+                {
+                    isArrival = false;
+                }
+
             }
             else
             {

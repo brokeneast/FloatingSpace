@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\Movement.cs" />
     <Compile Include="Assets\Script\RigidMovement.cs" />
     <Compile Include="Assets\Script\RoleInfo.cs" />
+    <Compile Include="Assets\Script\Seat.cs" />
     <Compile Include="Assets\Script\SeatingPlan.cs" />
     <Compile Include="Assets\Script\SpaceDirector.cs" />
     <Reference Include="UnityEngine">

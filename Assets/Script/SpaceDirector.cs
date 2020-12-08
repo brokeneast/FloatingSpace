@@ -20,6 +20,17 @@ public class SpaceDirector : MonoBehaviour
         seats = seatingPlan.AutoCreateSeat(18);
     }
 
+    public void Goto()
+    {
+        characterCommander.LookForward();
+        characterCommander.GoTo("0", new Vector3(0,0,-7),10f,true, Arrival);
+    }
+
+    void Arrival()
+    {
+        Debug.Log("Arrive");
+    }
+
     /// <summary>
     /// 增加新成員到空間中(預設)。
     /// </summary>

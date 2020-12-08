@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(BoxCollider))]
 public class FloatingSpace : MonoBehaviour
 {
