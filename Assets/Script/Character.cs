@@ -12,7 +12,6 @@ public class Character : RigidMovement
 
     protected override void Start()
     {
-        roleInfo = new RoleInfo();
         base.Start();
     }
 
@@ -20,8 +19,9 @@ public class Character : RigidMovement
     /// 角色初始化。
     /// </summary>
     /// <param name="info"></param>
-    public void Init(RoleInfo info)
+    public void Init(RoleInfo info, int seatIndex)
     {
+        roleInfo = new RoleInfo(seatIndex);
         roleInfo = info;
     }
 }

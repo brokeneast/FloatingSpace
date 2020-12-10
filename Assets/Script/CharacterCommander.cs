@@ -41,7 +41,7 @@ public class CharacterCommander : Commander<Character>
     {
         for (int i = 0; i < seats.Count; i++)
         {
-            Character c = GetCharacter(seats[i].characterId);
+            Character c = GetCharacter(seats[i].character.id);
             if (c != null)
             {
                 c.RotateTo(seats[i].rotation); //旋轉至指定角度

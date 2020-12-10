@@ -24,7 +24,7 @@ public class SpaceDirector : MonoBehaviour
     {
         Debug.Log("Arrive");
     }
-
+    /*
     /// <summary>
     /// 增加新成員到空間中(預設)。
     /// </summary>
@@ -44,6 +44,7 @@ public class SpaceDirector : MonoBehaviour
         character.Init(info);
         characterCommander.AddMember(character);//將其依附在指揮官下
     }
+    */
 
     #region Space control
     /// <summary>

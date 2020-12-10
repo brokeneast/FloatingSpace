@@ -9,10 +9,23 @@ public class RoleInfo
     public string id;
     public int seatIndex;//位置索引值
     public string displayName; //名稱
+    public string description;
+    public string tag;
+    public int model;//選擇的模型
 
-    public RoleInfo()
+    public RoleInfo(int seatIndex)
     {
-        //id = Guid.NewGuid().ToString("N");
-        id = "0";
+        id = Guid.NewGuid().ToString("N");
+        this.seatIndex = seatIndex;
     }
+
+    public RoleInfo(string name, string description, string tag ,int seatIndex)
+    {
+        id = Guid.NewGuid().ToString("N");
+        displayName = name;
+        this.description = description;
+        this.seatIndex = seatIndex;
+        this.tag = tag;
+    }
+
 }
