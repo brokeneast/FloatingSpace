@@ -22,13 +22,11 @@ public class SeatingPlanner : MonoBehaviour
     public delegate void ModifySeatHandler(int index, Seat seat);
     public event ModifySeatHandler OnSeatModified;//席位資訊更動
 
-
-
-    public const int maxSeatAmount = 30;//最大座位數
+    public const int maxSeatAmount = 36;//最大座位數
 
     //Auto
     private Vector3 autoSeatRefPos = Vector3.zero;//角色自動排列時就定位參考位置，以此點為參考位置(參考y,z為主)
-    private float seatSpace = 1.5f;//座位距離
+    private float seatSpace = 1.25f;//座位距離
     private float characterWidth = 1f;//角色寬度
     private float characterHeight = 1f;//角色寬度
 
@@ -73,7 +71,7 @@ public class SeatingPlanner : MonoBehaviour
             Seat s = new Seat(Vector3.zero);
             seatingPlan.seats.Add(s);
             OnSeatAdded?.Invoke(s);
-            Save();
+            AutoSeatPosAndSave();
         }
     }
 
@@ -84,7 +82,7 @@ public class SeatingPlanner : MonoBehaviour
     {
         seatingPlan.seats.RemoveAt(seatIndex);
         OnSeatDeleted?.Invoke(seatIndex);
-        Save();
+        AutoSeatPosAndSave();
     }
 
     /// <summary>
@@ -103,6 +101,7 @@ public class SeatingPlanner : MonoBehaviour
         }
 
         OnSeatModified?.Invoke(seatIndex, seatingPlan.seats[seatIndex]);
+        Save();
     }
 
     /// <summary>
@@ -127,18 +126,30 @@ public class SeatingPlanner : MonoBehaviour
         seatingPlan.seats[indexA].character.seatIndex = indexA;
         seatingPlan.seats[indexB].character.seatIndex = indexB;
         OnCharacterSwapped?.Invoke(seatingPlan.seats[indexA].character, seatingPlan.seats[indexB].character);
+        Save();
     }
 
     /// <summary>
     /// 設座位位置至列表座位資訊。
     /// </summary>
-    public void SetAllSeatPos(List<Vector3> seatPos)
+    public void SetAllSeatPos(List<Vector3> seatPos, bool ignoreCustomPos)
     {
         for (int i = 0; i < seatPos.Count; i++)
         {
             if (i <= seatingPlan.seats.Count - 1)//規劃的座位位置，尚未超出目前座位數量
             {
-                seatingPlan.seats[i].seatPos = seatPos[i];
+                if (!ignoreCustomPos)
+                {
+                    if (!seatingPlan.seats[i].isCustomPos)
+                    {
+                        seatingPlan.seats[i].seatPos = seatPos[i];
+                    }
+                }
+                else
+                {
+                    seatingPlan.seats[i].seatPos = seatPos[i];
+                }
+                
             }
             else
             {
@@ -147,6 +158,7 @@ public class SeatingPlanner : MonoBehaviour
             }
         }
         OnSeatsRefreshed?.Invoke(seatingPlan.seats);
+        Save();
     }
 
     /// <summary>
@@ -162,12 +174,14 @@ public class SeatingPlanner : MonoBehaviour
     /// <summary>
     /// 寫入座位位置根據索引值。
     /// </summary>
-    public void SetSeatPos(Vector3 pos, int seatIndex)
+    public void SetSeatPos(int seatIndex, Vector3 pos, bool isCustom)
     {
         if (seatIndex < seatingPlan.seats.Count)
         {
             seatingPlan.seats[seatIndex].seatPos = pos;
+            seatingPlan.seats[seatIndex].isCustomPos = isCustom;
             OnSeatModified?.Invoke(seatIndex, seatingPlan.seats[seatIndex]);
+            Save();
         }
     }
 
@@ -200,10 +214,17 @@ public class SeatingPlanner : MonoBehaviour
         int remainAmount = memberAmount;//尚未排上之數量
         int amountOfRow = (int)((FloatingSpace.spaceWidth - seatSpace) / (seatSpace + characterWidth));//一排放幾個
         int amountOfColumn = Mathf.CeilToInt((float)memberAmount / (float)amountOfRow);
-        Debug.Log(amountOfColumn);
         CreatSeatPos(amountOfRow, amountOfColumn, ref remainAmount, ref s);
 
         return s;
+    }
+
+    /// <summary>
+    /// 根據位置序位取得自動產生的預設位置。
+    /// </summary>
+    public Vector3 GetAutoPos(int index)
+    {
+        return AutoCreateSeatPos(seatingPlan.seats.Count)[index];
     }
 
     /// <summary>
@@ -272,6 +293,18 @@ public class SeatingPlanner : MonoBehaviour
         PlayerPrefs.SetString(seatingPlanName, JsonUtility.ToJson(seatingPlan));
         Debug.Log("Load seating data: " + JsonUtility.ToJson(seatingPlan));
     }
+
+
+    /// <summary>
+    /// 位置重整並儲存
+    /// </summary>
+    public void AutoSeatPosAndSave()
+    {
+
+        SetAllSeatPos(AutoCreateSeatPos(seatingPlan.seats.Count),false);
+
+    }
+
 
     /// <summary>
     /// 資料讀出。
