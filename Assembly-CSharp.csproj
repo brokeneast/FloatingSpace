@@ -62,25 +62,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Abstract\Commander.cs" />
-    <Compile Include="Assets\Script\Abstract\Movement.cs" />
-    <Compile Include="Assets\Script\Character.cs" />
-    <Compile Include="Assets\Script\CharacterCommander.cs" />
-    <Compile Include="Assets\Script\FloatingSpace.cs" />
-    <Compile Include="Assets\Script\ResourcesLoader.cs" />
-    <Compile Include="Assets\Script\RigidMovement.cs" />
-    <Compile Include="Assets\Script\RoleInfo.cs" />
-    <Compile Include="Assets\Script\RoleInfoSettingsWindow.cs" />
-    <Compile Include="Assets\Script\Seat.cs" />
-    <Compile Include="Assets\Script\SeatIndexHelper.cs" />
-    <Compile Include="Assets\Script\SeatingPanel.cs" />
-    <Compile Include="Assets\Script\SeatingPlan.cs" />
-    <Compile Include="Assets\Script\SeatingPlanner.cs" />
-    <Compile Include="Assets\Script\SeatingPlannerView.cs" />
-    <Compile Include="Assets\Script\SeatingPosAnchor.cs" />
-    <Compile Include="Assets\Script\SeatingPosSettingsView.cs" />
-    <Compile Include="Assets\Script\SpaceController.cs" />
-    <Compile Include="Assets\Script\SpaceDirector.cs" />
+    <Compile Include="Assets\Script\Comannder\CharacterCommander.cs" />
+    <Compile Include="Assets\Script\Comannder\Commander.cs" />
+    <Compile Include="Assets\Script\Movement\Character.cs" />
+    <Compile Include="Assets\Script\Movement\Movement.cs" />
+    <Compile Include="Assets\Script\Movement\RigidMovement.cs" />
+    <Compile Include="Assets\Script\Role\RoleCreator.cs" />
+    <Compile Include="Assets\Script\Role\RoleInfo.cs" />
+    <Compile Include="Assets\Script\Role\RoleInfoSettingsWindow.cs" />
+    <Compile Include="Assets\Script\Seat\Seat.cs" />
+    <Compile Include="Assets\Script\Seat\SeatIndexHelper.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPanel.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPlan.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPlanTemplate.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPlanner.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPlannerView.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPosAnchor.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingPosSettingsView.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingTemplate.cs" />
+    <Compile Include="Assets\Script\Space\FloatingSpace.cs" />
+    <Compile Include="Assets\Script\Space\SpaceController.cs" />
+    <Compile Include="Assets\Script\Space\SpaceDirector.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
