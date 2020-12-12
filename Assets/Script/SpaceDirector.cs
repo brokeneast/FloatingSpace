@@ -7,53 +7,107 @@ using UnityEngine;
 
 public class SpaceDirector : MonoBehaviour
 {
-    public GameObject characterPrefab;//成員物件
-    //characterCrator
+    //Seating
+    [SerializeField] SeatingPlanner seatingPlanner = null;
+    //Character
+    [SerializeField] GameObject characterPrefab = null;//成員物件
+    [SerializeField] GameObject objectCreatedArea = null;//角色生所成的物件下
+
     private CharacterCommander characterCommander;//角色指令官
+
+    //Pop
+    [Range(8,20)]
+    public float popOutSpeed = 10;
+    public Vector3 popOutPos = new Vector3(0, 0, -7);
+    private string currentPopCharacterId;//當前跳出之成員
 
     private void Start()
     {
+        //初始化
+        Init();
+    }
+
+    /// <summary>
+    /// 初始化。
+    /// </summary>
+    public void Init()
+    {
+        StartCoroutine(InitProcess());
+    }
+    
+    private IEnumerator InitProcess()
+    {
+        yield return StartCoroutine(CharacterInit());
+        yield return null;
+    }
+
+    /// <summary>
+    /// 角色初始。
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator CharacterInit()
+    {
         //替角色們指派一位指揮官
         characterCommander = new CharacterCommander();
-        //初始化
-        //等待角色生成完成
-        //characterCrator
-    }
-
-    void Arrival()
-    {
-        Debug.Log("Arrive");
-    }
-    /*
-    /// <summary>
-    /// 增加新成員到空間中(預設)。
-    /// </summary>
-    public void AddNewMember()
-    {
-        var c = Instantiate(characterPrefab, Vector3.zero, Quaternion.identity);
-        characterCommander.AddMember(c.GetComponent<Character>());//將其依附在指揮官下
+        ClearAllObjects();
+        AddNewMember(seatingPlanner.seatingPlan);
+        yield return null;
     }
 
     /// <summary>
-    /// 增加新成員到空間中。
+    /// 清除所有漂浮空間中的物件。
     /// </summary>
-    public void AddNewMember(RoleInfo info)
+    private void ClearAllObjects()
     {
-        var c = Instantiate(characterPrefab, Vector3.zero, Quaternion.identity);
-        Character character = c.GetComponent<Character>();
-        character.Init(info);
-        characterCommander.AddMember(character);//將其依附在指揮官下
+        foreach (Transform o in objectCreatedArea.transform)
+        {
+            Destroy(o.gameObject);
+        }
     }
-    */
+
+    /// <summary>
+    /// 根據席位配製增加新成員到空間中。
+    /// </summary>
+    private void AddNewMember(SeatingPlan seatingPlan)
+    {
+        for(int i = 0; i < seatingPlan.seats.Count; i++)
+        {
+            RoleInfo roleInfo = seatingPlan.seats[i].character;
+            if(roleInfo != null && !string.IsNullOrEmpty(roleInfo.id))
+            {
+                var c = Instantiate(characterPrefab, objectCreatedArea.transform);
+                Character character = c.GetComponent<Character>();
+                character.Init(seatingPlan.seats[i]);
+                characterCommander.AddMember(character);//將其依附在指揮官下
+            }
+        }
+       
+    }
+    
 
     #region Space control
     /// <summary>
     /// 依照指定席位打招呼。
     /// </summary>
-    public void SayHello()
+    public void PopOut(int index)
     {
-        characterCommander.LookForward("0");
-        characterCommander.GoTo("0", new Vector3(0, 0, -7), 10f, true, Arrival);
+        string id = seatingPlanner.GetCharacterId(index);
+        if (!string.IsNullOrEmpty(id) && id != currentPopCharacterId)
+        {
+            Back();
+            currentPopCharacterId = id;
+            characterCommander.LookForward(id);
+            characterCommander.GoTo(id, popOutPos, popOutSpeed, true, ArrivalPopPlace);
+        }
+
+    }
+
+    /// <summary>
+    /// 抵達打招呼位置後。
+    /// </summary>
+    private void ArrivalPopPlace()
+    {
+
     }
 
     /// <summary>
@@ -61,7 +115,12 @@ public class SpaceDirector : MonoBehaviour
     /// </summary>
     public void Back()
     {
-        characterCommander.BackFromDestination("0");
+        if (!string.IsNullOrEmpty(currentPopCharacterId))
+        {
+            characterCommander.BackFromDestination(currentPopCharacterId);
+            currentPopCharacterId = "";
+        }
+
     }
 
     /// <summary>
@@ -90,11 +149,25 @@ public class SpaceDirector : MonoBehaviour
     }
 
     /// <summary>
-    /// 向前看起。
+    /// 全部望前看。
     /// </summary>
     public void LookForward()
     {
         characterCommander.LookForward();
     }
+
+    /// <summary>
+    /// 回歸席位。
+    /// </summary>
+    public void BackToSeat()
+    {
+        characterCommander.GoToSeat(seatingPlanner.seatingPlan.seats, ArrivalSeat);
+    }
+
+    private void ArrivalSeat()
+    {
+
+    }
+
     #endregion
 }

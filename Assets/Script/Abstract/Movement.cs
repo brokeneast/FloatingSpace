@@ -46,6 +46,7 @@ public abstract class Movement : MonoBehaviour
     public virtual void Floating()
     {
         CreateMovingSettings();
+        Resume();
     }
 
     /// <summary>
@@ -83,6 +84,14 @@ public abstract class Movement : MonoBehaviour
         MoveTo(targetPos);
         movingSpeed = speed;
     }
+
+    public virtual void GoTo(Vector3 targetPos, Action onArrival)
+    {
+        comeBackPos = transform.position;
+        MoveTo(targetPos);
+        OnArrivalDestination = onArrival;
+    }
+
 
     public virtual void GoTo(Vector3 targetPos, float speed, Action onArrival)
     {

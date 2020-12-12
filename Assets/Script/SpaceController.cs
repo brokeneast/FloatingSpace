@@ -14,23 +14,36 @@ public class SpaceController : MonoBehaviour
         //全部角色聽口令
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            //基本
+            if (Input.GetKeyDown(KeyCode.F))//重設漂浮
             {
-                Debug.Log("All floating");
                 spaceDirector.Floating();
             }
-            else if (Input.GetKeyDown(KeyCode.H))
+            else if (Input.GetKeyDown(KeyCode.P))//全部暫停
             {
-                Debug.Log("All hold hands");
+                spaceDirector.Stop();
+            }
+            else if (Input.GetKeyDown(KeyCode.R))//全部恢復
+            {
+                spaceDirector.Resume();
+            }
+
+            //特殊
+            else if (Input.GetKeyDown(KeyCode.T))//回歸集合
+            {
+                spaceDirector.BackToSeat();
+            }
+            else if (Input.GetKeyDown(KeyCode.H))//握手
+            {
   
             }
-            else if (Input.GetKeyDown(KeyCode.R))
+            else if (Input.GetKeyDown(KeyCode.U))//舉手
             {
-                Debug.Log("All raise hand");
+   
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                Debug.Log("Active");
+   
             }
         }
         #endregion
@@ -51,8 +64,7 @@ public class SpaceController : MonoBehaviour
                 int index = SeatIndexHelper.SeatKeyCodeToIndex(c);
                 if (index != -1)
                 {
-
-                    spaceDirector.SayHello();
+                    spaceDirector.PopOut(index);
                 }
                 else
                 {

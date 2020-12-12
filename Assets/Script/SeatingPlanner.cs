@@ -104,6 +104,17 @@ public class SeatingPlanner : MonoBehaviour
         Save();
     }
 
+    public string GetCharacterId(int seatIndex)
+    {
+        string id = "";
+        if(seatIndex< seatingPlan.seats.Count)
+        {
+            id = seatingPlan.seats[seatIndex].character.id;
+        }
+       
+        return id;
+    }
+
     /// <summary>
     /// 刪除該席位的角色。
     /// </summary>
@@ -169,6 +180,11 @@ public class SeatingPlanner : MonoBehaviour
         List<Vector3> s = new List<Vector3>();
         s = seatingPlan.seats.Select(p => p.seatPos).ToList();
         return s;
+    }
+
+    public Vector3 GetSeatPos(int seatIndex)
+    {
+        return seatingPlan.seats[seatIndex].seatPos;
     }
 
     /// <summary>

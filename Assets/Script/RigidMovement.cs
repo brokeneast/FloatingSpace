@@ -39,11 +39,16 @@ public class RigidMovement : Movement
     {
         //Rigid
         stopRigid = false;
-
+        theCollider.enabled = true;
         //一般
         base.Resume();
     }
 
+    public void GoTo(Vector3 targetPos, bool ignoreCollider, Action onArrival)
+    {
+        base.GoTo(targetPos, onArrival);
+        theCollider.enabled = !ignoreCollider;
+    }
 
     public void GoTo(Vector3 targetPos, float speed, bool ignoreCollider)
     {

@@ -5,11 +5,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(SeatingPlanner))]
 public class SeatingPlannerView : MonoBehaviour
 {
-    [Header("Menu")]
+    #region Settings
+    [Header("Mode Switch")]
     [SerializeField] GameObject seatingPlanerWindow = null;//席位設定視窗
     [SerializeField] GameObject seatingPosAnchors = null;//席位位置擺放編輯器
     [SerializeField] GameObject seatingPosChangedComfirm = null;//席位位置擺放確認鍵
     [SerializeField] GameObject floatingSpace = null;//編輯位置時須關閉空間
+    [SerializeField] SpaceDirector spaceDirector = null;//編輯時，須停止其他動作。
+    [SerializeField] GameObject objectCreatedArea = null;//編輯時，須隱藏遊戲物件。
 
     [Header("Seat")]
     [SerializeField] SeatingPlanner seatingPlanner = null;
@@ -17,6 +20,7 @@ public class SeatingPlannerView : MonoBehaviour
     [SerializeField] GameObject seatingPanelContainer = null;//座位安排介面清單
     [SerializeField] SeatingPosSettingsView seatingPosSettingsView = null;//座位位置控制茅點放置
     [SerializeField] Text seatAmountText = null;
+    #endregion
 
     public List<SeatingPanel> seatPanels = new List<SeatingPanel>();
 
@@ -138,6 +142,8 @@ public class SeatingPlannerView : MonoBehaviour
         floatingSpace.SetActive(true);
         seatingPosAnchors.SetActive(true);
         seatingPosChangedComfirm.SetActive(false);
+        spaceDirector.Stop();
+        objectCreatedArea.SetActive(false);
     }
 
     public void CloseSeatingPlannerWindow()
@@ -146,6 +152,8 @@ public class SeatingPlannerView : MonoBehaviour
         floatingSpace.SetActive(true);
         seatingPosAnchors.SetActive(false);
         seatingPosChangedComfirm.SetActive(false);
+        objectCreatedArea.SetActive(true);
+        spaceDirector.Init();
     }
 
     public void OpenSeatingPosSettingsMode()
@@ -155,7 +163,5 @@ public class SeatingPlannerView : MonoBehaviour
         seatingPlanerWindow.SetActive(false);
         floatingSpace.SetActive(false);
     }
-
-    
     #endregion
 }

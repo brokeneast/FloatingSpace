@@ -26,6 +26,7 @@ public abstract class Commander<TMovement>
     {
         for (int i = 0; i < members.Count; i++)
         {
+            members[i].Resume();
             members[i].Floating();
         }
     }

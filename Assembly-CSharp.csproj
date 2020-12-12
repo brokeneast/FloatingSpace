@@ -67,6 +67,7 @@
     <Compile Include="Assets\Script\Character.cs" />
     <Compile Include="Assets\Script\CharacterCommander.cs" />
     <Compile Include="Assets\Script\FloatingSpace.cs" />
+    <Compile Include="Assets\Script\ResourcesLoader.cs" />
     <Compile Include="Assets\Script\RigidMovement.cs" />
     <Compile Include="Assets\Script\RoleInfo.cs" />
     <Compile Include="Assets\Script\RoleInfoSettingsWindow.cs" />
