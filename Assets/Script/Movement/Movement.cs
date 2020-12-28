@@ -45,6 +45,7 @@ public abstract class Movement : MonoBehaviour
     /// </summary>
     public virtual void Floating()
     {
+        SpeedReset(true,true);
         CreateMovingSettings();
         Resume();
     }

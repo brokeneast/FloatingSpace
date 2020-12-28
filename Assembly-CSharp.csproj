@@ -72,14 +72,12 @@
     <Compile Include="Assets\Script\Role\RoleInfoSettingsWindow.cs" />
     <Compile Include="Assets\Script\Seat\Seat.cs" />
     <Compile Include="Assets\Script\Seat\SeatIndexHelper.cs" />
+    <Compile Include="Assets\Script\Seat\SeatingAnchor.cs" />
     <Compile Include="Assets\Script\Seat\SeatingPanel.cs" />
     <Compile Include="Assets\Script\Seat\SeatingPlan.cs" />
-    <Compile Include="Assets\Script\Seat\SeatingPlanTemplate.cs" />
     <Compile Include="Assets\Script\Seat\SeatingPlanner.cs" />
     <Compile Include="Assets\Script\Seat\SeatingPlannerView.cs" />
-    <Compile Include="Assets\Script\Seat\SeatingPosAnchor.cs" />
     <Compile Include="Assets\Script\Seat\SeatingPosSettingsView.cs" />
-    <Compile Include="Assets\Script\Seat\SeatingTemplate.cs" />
     <Compile Include="Assets\Script\Space\FloatingSpace.cs" />
     <Compile Include="Assets\Script\Space\SpaceController.cs" />
     <Compile Include="Assets\Script\Space\SpaceDirector.cs" />

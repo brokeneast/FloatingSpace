@@ -33,18 +33,6 @@ public class SpaceController : MonoBehaviour
             {
                 spaceDirector.BackToSeat();
             }
-            else if (Input.GetKeyDown(KeyCode.H))//握手
-            {
-  
-            }
-            else if (Input.GetKeyDown(KeyCode.U))//舉手
-            {
-   
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-   
-            }
         }
         #endregion
 

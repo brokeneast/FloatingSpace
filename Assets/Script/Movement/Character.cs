@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class Character : RigidMovement
 {
+    [SerializeField] TextMesh nameText = null;
     public Seat seat;//席位及個人資訊
 
     public enum MovingMode {FLOATING, REST, IN_SEAT};//移動狀態
-    public enum ActionMode {SWIMING_FRONT_CRAWL, SWIMING_BREASTSTROKE, HOLD_HANDS, RAISE_HAND};//動畫狀態
 
     protected override void Start()
     {
@@ -23,6 +22,7 @@ public class Character : RigidMovement
     public void Init(Seat seat)
     {
         this.seat = seat;
+        nameText.text = seat.role.displayName;
     }
 
 }

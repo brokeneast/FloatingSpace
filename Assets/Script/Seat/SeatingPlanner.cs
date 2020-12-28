@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class SeatingPlanner : MonoBehaviour
 {
-    public string seatingPlanName = "SeatingPlane";
+    public string seatingPlanName = "SeatingPlan";
     public SeatingPlan seatingPlan;
     private static SeatingPlanner instance;
 
@@ -45,7 +45,6 @@ public class SeatingPlanner : MonoBehaviour
 
     private void Start()
     {
-        //PlayerPrefs.DeleteAll();//全部資料清空
         //檢查並載入資料
         seatingPlan = new SeatingPlan(seatingPlanName);
 
@@ -55,7 +54,7 @@ public class SeatingPlanner : MonoBehaviour
         }
         else
         {
-            Save();
+            LoadTemplate(0);//載入預設檔案
         }
     }
 
@@ -315,7 +314,6 @@ public class SeatingPlanner : MonoBehaviour
     public void Save()
     {
         PlayerPrefs.SetString(seatingPlanName, JsonUtility.ToJson(seatingPlan));
-        Debug.Log("Load seating data: " + JsonUtility.ToJson(seatingPlan));
     }
 
 
@@ -333,7 +331,6 @@ public class SeatingPlanner : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        Debug.Log("Load seating data: " + PlayerPrefs.GetString(seatingPlanName));
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(seatingPlanName), seatingPlan);
         OnSeatsRefreshed?.Invoke(seatingPlan.seats);
     }
@@ -345,6 +342,26 @@ public class SeatingPlanner : MonoBehaviour
     {
         //刪除
         PlayerPrefs.DeleteKey(seatingPlanName);
+    }
+
+    /// <summary>
+    /// 僅讀取席位資訊。
+    /// </summary>
+    public void LoadTemplate(int index)
+    {
+        SeatingPlan sp = new SeatingPlan(seatingPlanName);
+        JsonUtility.FromJsonOverwrite(LoadResourceTextfile("Template/" + index.ToString()), sp);
+        seatingPlan = sp;
+        Save();
+        Load();
+    }
+
+
+    private string LoadResourceTextfile(string path)
+    {
+        string filePath = path.Replace(".json", "");
+        TextAsset targetFile = Resources.Load<TextAsset>(filePath);
+        return targetFile.text;
     }
     #endregion
 }

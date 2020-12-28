@@ -1,0 +1,446 @@
+{
+  "planName": "SeatingPlane",
+  "seats": [
+    {
+      "role": {
+        "id": "cee59365b6e545f89754f83578246f0e",
+        "seatIndex": 0,
+        "displayName": "A",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -6.75,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "8591a9fc3e2c419492c058e46524a907",
+        "seatIndex": 1,
+        "displayName": "B",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -4.5,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "f52969f7454947ce8bdc4bf9b96f1f3c",
+        "seatIndex": 2,
+        "displayName": "C",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -2.25,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "560216e5397a48faa48f93de76a3ca2c",
+        "seatIndex": 3,
+        "displayName": "D",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 0.0,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "f3f71a5d763b458c9375a8be7d23bd63",
+        "seatIndex": 4,
+        "displayName": "E",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 2.25,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "4808214f219942bdaed45ceb18ba1f9e",
+        "seatIndex": 5,
+        "displayName": "F",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 4.5,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "dbe4069d619c45b5a30ed3661d652e3e",
+        "seatIndex": 6,
+        "displayName": "G",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 6.75,
+        "y": 2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "7c5005fb5c334d5095d2e834725b3cdc",
+        "seatIndex": 7,
+        "displayName": "H",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -6.75,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "6f162ba690ba4d2aaf43cac1d6623137",
+        "seatIndex": 8,
+        "displayName": "I",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -4.5,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "6d6b4f7e275b47b88ef51b9dbc8f21c8",
+        "seatIndex": 9,
+        "displayName": "J",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -2.25,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "44431809d8f14aa8b0fa317598c28b93",
+        "seatIndex": 10,
+        "displayName": "K",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "f94e0773b91b4279a5d108ef80a9791f",
+        "seatIndex": 11,
+        "displayName": "L",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 2.25,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "3fc3ddcdae114837b129180d492007e6",
+        "seatIndex": 12,
+        "displayName": "M",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 4.5,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "f3700f918f9348358b0e28574e065391",
+        "seatIndex": 13,
+        "displayName": "N",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 6.75,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "e7291bf2bb174bed98c528daff5f43d3",
+        "seatIndex": 14,
+        "displayName": "O",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -6.75,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "98d8e855938441efa5cfd4627de8e4fa",
+        "seatIndex": 15,
+        "displayName": "P",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -4.5,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "d7f09bb834ef48d8a221fd0f7d806dbd",
+        "seatIndex": 16,
+        "displayName": "Q",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": -2.25,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": true
+    },
+    {
+      "role": {
+        "id": "db6b6efa2b0743e8889f5b24cb7bc9e2",
+        "seatIndex": 17,
+        "displayName": "R",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 0.0,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": false
+    },
+    {
+      "role": {
+        "id": "9621069dd9d34d52861ac5038531dffa",
+        "seatIndex": 18,
+        "displayName": "S",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 2.25,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": false
+    },
+    {
+      "role": {
+        "id": "e7bf3041107b495fb8e4aa50a06fe998",
+        "seatIndex": 19,
+        "displayName": "T",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 4.5,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": false
+    },
+    {
+      "role": {
+        "id": "54c1b988c1044a5e83e763f3e1f13a78",
+        "seatIndex": 20,
+        "displayName": "U",
+        "description": "",
+        "tag": "",
+        "skin": 0
+      },
+      "seatPos": {
+        "x": 6.75,
+        "y": -2.25,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "isCustomPos": false
+    }
+  ]
+}

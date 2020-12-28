@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class SpaceDirector : MonoBehaviour
 {
-    //Seating
+    [Header("Seat")]
     [SerializeField] SeatingPlanner seatingPlanner = null;
-    //Character
+    [Header("Character")]
     [SerializeField] GameObject objectCreatedArea = null;//角色生所成的物件下
     [SerializeField] RoleCreator roleCreator = null;
     private CharacterCommander characterCommander;//角色指令官
@@ -20,6 +20,9 @@ public class SpaceDirector : MonoBehaviour
     public Vector3 popOutPos = new Vector3(0, 0, -7);
     private string currentPopCharacterId;//當前跳出之成員
 
+    //BackToSeat
+    [Range(2,10)]
+    public float backToSeatSpeed = 4;
     private void Start()
     {
         //初始化
@@ -161,7 +164,7 @@ public class SpaceDirector : MonoBehaviour
     /// </summary>
     public void BackToSeat()
     {
-        characterCommander.GoToSeat(seatingPlanner.seatingPlan.seats, ArrivalSeat);
+        characterCommander.GoToSeat(seatingPlanner.seatingPlan.seats, backToSeatSpeed, ArrivalSeat);
     }
 
     private void ArrivalSeat()

@@ -61,6 +61,7 @@ public class RoleInfoSettingsWindow : MonoBehaviour
         nameInputField.text = roleInfo.displayName;
         descriptionInputField.text = roleInfo.description;
         tagInputField.text = roleInfo.tag;
+        skinDropdown.value = roleInfo.skin;
     }
 
     private void SubmitName(string arg0)
@@ -87,6 +88,7 @@ public class RoleInfoSettingsWindow : MonoBehaviour
             skinNameList.Add(roleCreator.skins[i].name);
         }
         skinDropdown.AddOptions(skinNameList);
+        skinDropdown.value = roleInfo.skin;
     }
 
     private void DropdownValueChanged(Dropdown change)

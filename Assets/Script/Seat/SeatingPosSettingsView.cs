@@ -9,7 +9,7 @@ public class SeatingPosSettingsView : MonoBehaviour
 {
     [SerializeField] GameObject seatingPosAnchorPrefab = null;//席位位置茅點
     [SerializeField] GameObject seatingPosAnchorPlace = null;
-    public List<SeatingPosAnchor> posAnchors = new List<SeatingPosAnchor>();
+    public List<SeatingAnchor> posAnchors = new List<SeatingAnchor>();
 
     public void Refresh(List<Seat> seats)
     {
@@ -26,14 +26,11 @@ public class SeatingPosSettingsView : MonoBehaviour
         {
             for (int i = 0; i < distance; i++)
             {
-                Debug.Log(i);
                 GameObject sp = Instantiate(seatingPosAnchorPrefab, seatingPosAnchorPlace.transform);
-                SeatingPosAnchor spAnchor = sp.GetComponent<SeatingPosAnchor>();
+                SeatingAnchor spAnchor = sp.GetComponent<SeatingAnchor>();
                 posAnchors.Add(spAnchor);
             }
         }
-
-        Debug.LogFormat("{0} : {1}", seats.Count, posAnchors.Count);
 
         //排列
         for (int i = 0; i < seats.Count; i++)

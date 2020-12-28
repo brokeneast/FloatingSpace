@@ -37,7 +37,7 @@ public class CharacterCommander : Commander<Character>
     /// <summary>
     /// 前往指定的位子，依照位置排序站好，每個位置都有對應的角色id，及他的位置、轉向等資訊。
     /// </summary>
-    public void GoToSeat(List<Seat> seats, Action OnArrival)
+    public void GoToSeat(List<Seat> seats, float speed, Action OnArrival)
     {
         for (int i = 0; i < seats.Count; i++)
         {
@@ -45,7 +45,7 @@ public class CharacterCommander : Commander<Character>
             if (c != null)
             {
                 c.RotateTo(seats[i].rotation); //旋轉至指定角度
-                c.GoTo(seats[i].seatPos,true, OnArrival);//移動前往，忽略碰撞
+                c.GoTo(seats[i].seatPos, speed, true, OnArrival);//移動前往，忽略碰撞
             }
         }
     }
