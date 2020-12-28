@@ -6,12 +6,15 @@
 #### 自由漂浮
 程式執行時將會依照螢幕大小創建漂浮空間，物件將會於此自由旋轉及移動。
 
+![image](https://github.com/brokeneast/FloatingSpace/blob/main/Demo/Floating.gif)
+
 #### 集合
 每一個物件將對應一個席位，當收到集合命令時，物件將回歸席位。
 
 - 集合 **Shift + T**
 - 浮動 **Shift + F**
 
+![image](https://github.com/brokeneast/FloatingSpace/blob/main/Demo/Back.gif)
 
 #### 指定
 每一個物件將對應一個席位，每個席位以英文字母為對應名。A、B、C... 以此類推。
@@ -20,8 +23,10 @@
 - 彈出 **方向鍵下 + 對應的字母 (範圍: A-Z)**
 - 退回 **方向鍵上**
 
+![image](https://github.com/brokeneast/FloatingSpace/blob/main/Demo/Pop.gif)
+
 #### 其他
-- 全部停止動作 **Shift + S**
+- 全部停止動作 **Shift + P**
 - 恢復 **Shift + R**
 
 ### 編輯模式
@@ -34,8 +39,12 @@
 - 新增刪除席位
 - 修改席位位置
 
+![image](https://github.com/brokeneast/FloatingSpace/blob/main/Demo/SeatPos.gif)
+
 #### 編輯物件資訊
 使用者能自行輸入物件名稱、類別等。
+
+![image](https://github.com/brokeneast/FloatingSpace/blob/main/Demo/Edit.gif)
 
 ### 補充
 ----
